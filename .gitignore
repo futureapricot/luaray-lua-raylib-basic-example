@@ -1,0 +1,17 @@
+*
+
+!lib[s]/**
+!assets/**
+!.github/**
+
+!*/
+!*.h
+!*.c
+!*.cpp
+!*.lua
+
+!.gitignore
+
+!*.mk
+!Makefile
+!AGENTS.md
