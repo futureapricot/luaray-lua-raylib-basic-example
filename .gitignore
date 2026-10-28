@@ -11,6 +11,7 @@
 !*.lua
 
 !.gitignore
+!.clang-format
 
 !*.mk
 !Makefile

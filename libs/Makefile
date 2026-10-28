@@ -1,5 +1,6 @@
 RAYLIB_PATH	?= ../../raylib
 LUA_PATH	?= C:/lua/lua-5.5.1
+EMSDK_PATH	?= C:/emsdk
 
 
 RAYLIB_OUT	:= raylib
@@ -8,7 +9,7 @@ LUA_OUT		:= lua
 
 .PHONY: raylib-desktop
 raylib-desktop:
-	$(MAKE) -C $(RAYLIB_PATH) clean
+	$(MAKE) -C $(RAYLIB_PATH)/src clean
 	$(MAKE) -j 32 -C $(RAYLIB_PATH)/src \
 		PLATFORM=PLATFORM_DESKTOP \
 		RAYLIB_LIBTYPE=STATIC \
@@ -20,6 +21,22 @@ raylib-desktop:
 		$(RAYLIB_PATH)/src/rlgl.h $(RAYLIB_OUT)/
 
 
+.PHONY: raylib-web
+raylib-web:
+	$(MAKE) -C $(RAYLIB_PATH)/src clean
+	$(MAKE) -j 32 -C $(RAYLIB_PATH)/src \
+		PLATFORM=PLATFORM_WEB \
+		RAYLIB_LIBTYPE=STATIC \
+		BUILD_MODE=RELEASE \
+		EMSDK_PATH=$(EMSDK_PATH)
+	mkdir -p $(RAYLIB_OUT)
+	cp $(RAYLIB_PATH)/src/libraylib.web.a \
+		$(RAYLIB_PATH)/src/raylib.h \
+		$(RAYLIB_PATH)/src/raymath.h \
+		$(RAYLIB_PATH)/src/rlgl.h \
+		$(RAYLIB_PATH)/src/minshell.html $(RAYLIB_OUT)
+
+
 .PHONY: lua-mingw
 lua-mingw:
 	$(MAKE) -C $(LUA_PATH) clean
@@ -29,3 +46,19 @@ lua-mingw:
 	cp $(LUA_PATH)/install/lib/liblua.a \
 		$(LUA_PATH)/install/include/*.h \
 		$(LUA_PATH)/install/include/*.hpp $(LUA_OUT)/
+
+
+.PHONY: lua-web
+lua-web:
+	$(MAKE) -C $(LUA_PATH)/src clean
+	$(MAKE) -j 32 -C $(LUA_PATH)/src a \
+		"CC=emcc -std=gnu99" \
+		"AR=emar rcu" \
+		RANLIB=emranlib \
+		LUA_A=liblua.web.a
+	mkdir -p $(LUA_OUT)
+	cp $(LUA_PATH)/src/liblua.web.a \
+		$(LUA_PATH)/src/lua.h \
+		$(LUA_PATH)/src/luaconf.h \
+		$(LUA_PATH)/src/lualib.h \
+		$(LUA_PATH)/src/lauxlib.h $(LUA_OUT)/

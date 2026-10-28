@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: Latest
+IndentWidth: 4
+ColumnLimit: 160
+PointerAlignment: Right
+BreakBeforeBraces: Custom
+BraceWrapping:
+  BeforeElse: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortBlocksOnASingleLine: Always
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+InsertBraces: true
+IncludeBlocks: Preserve
+SortIncludes: Never

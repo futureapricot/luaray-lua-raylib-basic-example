@@ -16,7 +16,7 @@ int main(void) {
 
     lua_pushstring(L, "hello lua!");
     lua_setglobal(L, "myvar");
-    if (luaL_loadfile(L, SCRIPT_DIR "/init.lua") || lua_pcall(L, 0, 0, 0)) {
+    if (luaL_loadfile(L, LUA_DIR "/init.lua") || lua_pcall(L, 0, 0, 0)) {
         printf("Lua error: %s\n", lua_tostring(L, -1));
         assert(0);
     }
