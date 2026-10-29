@@ -1,7 +1,5 @@
 RAYLIB_PATH	?= ../../raylib
 LUA_PATH	?= C:/lua/lua-5.5.1
-EMSDK_PATH	?= C:/emsdk
-
 
 RAYLIB_OUT	:= raylib
 LUA_OUT		:= lua
@@ -27,8 +25,7 @@ raylib-web:
 	$(MAKE) -j 32 -C $(RAYLIB_PATH)/src \
 		PLATFORM=PLATFORM_WEB \
 		RAYLIB_LIBTYPE=STATIC \
-		BUILD_MODE=RELEASE \
-		EMSDK_PATH=$(EMSDK_PATH)
+		BUILD_MODE=RELEASE
 	mkdir -p $(RAYLIB_OUT)
 	cp $(RAYLIB_PATH)/src/libraylib.web.a \
 		$(RAYLIB_PATH)/src/raylib.h \
